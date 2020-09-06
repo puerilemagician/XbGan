@@ -129,8 +129,8 @@ class MUNIT_Trainer(nn.Module):
                               hyperparameters['recon_x_cyc_w'] * self.loss_gen_cycrecon_x_b + \
                               hyperparameters['vgg_w'] * self.loss_gen_vgg_a + \
                               hyperparameters['vgg_w'] * self.loss_gen_vgg_b
-        self.loss_gen_total += self.recon_criterion(c_a,c_aT) * 5
-        self.loss_gen_total += self.loss_gen_styleT * 5
+        self.loss_gen_total += self.recon_criterion(c_a,c_aT) * 2
+        self.loss_gen_total += self.loss_gen_styleT * 2
         self.loss_gen_total.backward()
         self.gen_opt.step()
 

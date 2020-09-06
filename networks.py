@@ -238,7 +238,7 @@ class StyleEncoderT(nn.Module):
 
     def forward(self, x):
         x = self.model1(x)
-        x = self.geo_transform.forward(x, (256, 256),[0.25,0.05])#!!!!!!2nd parameter!
+        x = self.geo_transform.forward(x, (256, 256),[0.05,0.25])#!!!!!!2nd parameter!
         return self.model2(x)
 class StyleEncoder(nn.Module):
     def __init__(self, n_downsample, n_res, input_dim, dim, norm, activ, pad_type):
@@ -292,7 +292,7 @@ class ContentEncoderT(nn.Module):
 
     def forward(self, x):
         x = self.model1(x)
-        x = self.geo_transform.forward(x, (256, 256),[0.01,0.1])#!!!!!!2nd parameter!
+        x = self.geo_transform.forward(x, (256, 256),[0.05,0.25])#!!!!!!2nd parameter!
         # x = self.model2(x)
         # print("passout")
         return self.model2(x)
@@ -336,7 +336,7 @@ class DecoderT(nn.Module):
 
     def forward(self, x):
         x = self.model(x)
-        x = self.geo_transform.forward(x, (256, 256),[0.01,0.1])#!!!!!!2nd parameter!
+        x = self.geo_transform.forward(x, (256, 256),[0.05,0.25])#!!!!!!2nd parameter!
 
         return x
 
