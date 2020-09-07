@@ -130,7 +130,7 @@ class MUNIT_Trainer(nn.Module):
                               hyperparameters['vgg_w'] * self.loss_gen_vgg_a + \
                               hyperparameters['vgg_w'] * self.loss_gen_vgg_b
         self.loss_gen_total += self.recon_criterion(c_a,c_aT) * 2
-        self.loss_gen_total += self.loss_gen_styleT * 2
+        self.loss_gen_total += self.loss_gen_styleT * 1.2
         self.loss_gen_total.backward()
         self.gen_opt.step()
 
@@ -152,6 +152,7 @@ class MUNIT_Trainer(nn.Module):
         c_a, s_a_fake = self.gen_a.encode(x_a)
         c_b, s_b_fake = self.gen_b.encode(x_b)
         x_a_recon.append(self.gen_a.decode(c_a, s_a_fake))
+        # print("x_a_recon size:",len(x_a_recon))  #11111
         x_b_recon.append(self.gen_b.decode(c_b, s_b_fake))
         x_ba.append(self.gen_a.decode(c_b, s_a_fake))
         # x_ba2.append(self.gen_a.decode(c_b, s_a_fake))
@@ -160,7 +161,8 @@ class MUNIT_Trainer(nn.Module):
         x_a_recon, x_b_recon = torch.cat(x_a_recon), torch.cat(x_b_recon)
         x_ba = torch.cat(x_ba)
         x_ab = torch.cat(x_ab)
- 
+        x_a_recon = torch.cat((x_b, x_a_recon))
+        x_b_recon = torch.cat((x_a, x_b_recon))
         # x_ab1, x_ab2 = torch.cat(x_ab1), torch
         # .cat(x_ab2)
         self.train()

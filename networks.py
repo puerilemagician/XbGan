@@ -332,11 +332,11 @@ class DecoderT(nn.Module):
         # use reflection padding in the last conv layer
         self.model += [Conv2dBlock(dim, output_dim, 7, 1, 3, norm='none', activation='tanh', pad_type=pad_type)]
         self.model = nn.Sequential(*self.model)
-        self.geo_transform = GeoTransformT()
+        self.geo_transform = GeoTransform()
 
     def forward(self, x):
         x = self.model(x)
-        x = self.geo_transform.forward(x, (256, 256),[0.05,0.25])#!!!!!!2nd parameter!
+        x = self.geo_transform.forward(x, (256, 256),[-0.05,-0.25])#!!!!!!2nd parameter!
 
         return x
 
